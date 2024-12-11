@@ -1,17 +1,20 @@
-import mysql from "mysql2/promise";
+import mongoose from "mongoose";
 
-// Create a connection pool
-const pool = mysql.createPool({
-  host: "localhost",     // Your MariaDB host
-  user: "root",          // Your MariaDB user
-  password: "123",  // Your MariaDB password
-  database: "your_database_name",   // Your MariaDB database
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
+const connectToDatabase = async () => {
+  try {
+    const uri = "add your mongodb uri"; // Replace with your MongoDB URI
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("Failed to connect to MongoDB", err);
+    process.exit(1);
+  }
+};
 
-export default pool;
+export default connectToDatabase;
 
 
 // import { MongoClient, ServerApiVersion } from "mongodb";
